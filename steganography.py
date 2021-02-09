@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-#CONVERTIR DATOS A FORMATO BINARIO.A
+#CONVERTIR DATOS A FORMATO BINARIO.
 def to_bin(data):
     if isinstance(data, str):
         return ''.join([ format(ord(i), "08b") for i in data ])
