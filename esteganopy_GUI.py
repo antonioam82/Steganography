@@ -10,7 +10,7 @@ class app():
     def __init__(self):
         self.window = Tk()
         self.window.title("Image Steganography")
-        self.window.geometry("593x410")
+        self.window.geometry("593x405")
         self.backgr = "gray90"
         #self.window.configure(bg=self.backgr)
 
@@ -38,7 +38,6 @@ class app():
         self.btnStart = Button(self.window,text="START ENCODING",width=81,bg=self.backgr)
         self.btnStart.place(x=5,y=358)
         
-
         self.show_dir()
 
         self.window.mainloop()
