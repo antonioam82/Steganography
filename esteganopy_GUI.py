@@ -56,6 +56,9 @@ class app():
         if file != "":
             self.file_name = file.split("/")[-1]
             self.imaname.set(self.file_name)
+            self.image = cv2.imread(self.file_name)
+            self.n_bytes = self.image.shape[0] * self.image.shape[1] * 3 // 8
+            print(self.n_bytes)
 
                                     
 if __name__=="__main__":
