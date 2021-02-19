@@ -31,13 +31,14 @@ class app():
         self.rdbEncode.place(x=420,y=277)
         self.rdbDecode = Radiobutton(self.window,text="Decode",variable=self.mode,value="DE",command=self.set_mode)
         self.rdbDecode.place(x=506,y=277)
-        self.btnSearch = Button(self.window,text="SEARCH",width=20,bg=self.backgr)
+        self.btnSearch = Button(self.window,text="SEARCH",width=20,bg=self.backgr,command=self.open_file)
         self.btnSearch.place(x=5,y=315)
         self.entImage = Entry(self.window,width=37,font=('arial',14,'bold'),textvariable=self.imaname)
         self.entImage.place(x=167,y=315)
         self.btnStart = Button(self.window,text="START ENCODING",width=81,bg=self.backgr)
         self.btnStart.place(x=5,y=358)
         
+
         self.show_dir()
 
         self.window.mainloop()
@@ -48,6 +49,13 @@ class app():
 
     def set_mode(self):
         self.btnStart.configure(text="START {}CODING".format(self.mode.get()))
+
+    def open_file(self):
+        file = filedialog.askopenfilename(initialdir="/",title="SELECCIONAR ARCHIVO",
+               filetypes =(("PNG files","*.PNG") ,("TIFF files","*.TIFF")))
+        if file != "":
+            self.file_name = file.split("/")[-1]
+            self.imaname.set(self.file_name)
 
                                     
 if __name__=="__main__":
