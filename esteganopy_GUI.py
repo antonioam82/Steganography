@@ -18,6 +18,7 @@ class app():
         self.current_dir = StringVar()
         self.mode = StringVar()
         self.mode.set("EN")
+        self.nbytes = IntVar()
 
         self.entryDir = Entry(self.window,width=98,textvariable=self.current_dir)
         self.entryDir.place(x=0,y=0)
@@ -37,6 +38,10 @@ class app():
         self.entImage.place(x=167,y=315)
         self.btnStart = Button(self.window,text="START ENCODING",width=81,bg=self.backgr)
         self.btnStart.place(x=5,y=358)
+        self.bylab = Label(self.window,text="BYTES AVAILABLE:")
+        self.bylab.place(x=167,y=280)
+        self.byEnt = Entry(self.window,textvariable=self.nbytes,width=17)
+        self.byEnt.place(x=275,y=281)
         
 
         self.show_dir()
@@ -56,9 +61,12 @@ class app():
         if file != "":
             self.file_name = file.split("/")[-1]
             self.imaname.set(self.file_name)
-            self.image = cv2.imread(self.file_name)
-            self.n_bytes = self.image.shape[0] * self.image.shape[1] * 3 // 8
-            print(self.n_bytes)
+            try:
+                self.image = cv2.imread(file)
+                self.n_bytes = self.image.shape[0] * self.image.shape[1] * 3 // 8
+                self.nbytes.set(self.n_bytes)
+            except:
+                messagebox.showwarning("ERROR","Bad file format.")
 
                                     
 if __name__=="__main__":
