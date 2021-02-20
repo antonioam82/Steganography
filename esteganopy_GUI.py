@@ -101,7 +101,10 @@ class app():
             if decoded_data[-5:] == "=====":
                 break
         self.clear()
-        self.textEntry.insert(END,decoded_data[:-5])
+        if not "ÿ" in decoded_data[:-5]:
+            self.textEntry.insert(END,decoded_data[:-5])
+        else:
+            print(":P")
 
     def init_task(self):
         if self.mode.get()=="EN":
