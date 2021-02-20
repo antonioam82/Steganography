@@ -5,7 +5,6 @@ import tkinter.scrolledtext as sct
 import threading
 import cv2
 import os
-
 import numpy as np
 
 class app():
@@ -101,7 +100,7 @@ class app():
             if decoded_data[-5:] == "=====":
                 break
         self.clear()
-        if not "ÿ" in decoded_data[:-5]:
+        if "=====" in decoded_data:
             self.textEntry.insert(END,decoded_data[:-5])
         else:
             print(":P")
