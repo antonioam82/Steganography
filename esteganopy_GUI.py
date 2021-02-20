@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox, filedialog
 import tkinter.scrolledtext as sct
+import threading
 import cv2
 import os
 import numpy as np
@@ -26,7 +27,7 @@ class app():
         self.textEntry.place(x=5,y=28)
         self.btnCopy = Button(self.window,text="COPY TEXT",bg=self.backgr)
         self.btnCopy.place(x=5,y=277)
-        self.btnClear = Button(self.window,text="CLEAR TEXT",bg=self.backgr)
+        self.btnClear = Button(self.window,text="CLEAR TEXT",bg=self.backgr,command=self.clear)
         self.btnClear.place(x=80,y=277)
         self.rdbEncode = Radiobutton(self.window,text="Encode",variable=self.mode,value="EN",command=self.set_mode)
         self.rdbEncode.place(x=420,y=277)
@@ -67,6 +68,9 @@ class app():
                 self.nbytes.set(self.n_bytes)
             except:
                 messagebox.showwarning("ERROR","Bad file format.")
+
+    def clear(self):
+        self.textEntry.delete('1.0',END)
 
                                     
 if __name__=="__main__":
