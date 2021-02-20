@@ -101,9 +101,10 @@ class app():
                 break
         self.clear()
         if "=====" in decoded_data:
+            self.clear()
             self.textEntry.insert(END,decoded_data[:-5])
         else:
-            print(":P")
+            messagebox.showwarning("NO DATA","No data encoded.")
 
     def init_task(self):
         if self.mode.get()=="EN":
