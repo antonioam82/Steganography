@@ -20,6 +20,7 @@ class app():
         self.mode = StringVar()
         self.mode.set("EN")
         self.nbytes = IntVar()
+        self.file_name = ""
 
         self.entryDir = Entry(self.window,width=98,textvariable=self.current_dir)
         self.entryDir.place(x=0,y=0)
@@ -107,11 +108,15 @@ class app():
             messagebox.showwarning("NO DATA","No data encoded.")
 
     def init_task(self):
-        if self.mode.get()=="EN":
-            t = threading.Thread(target=self.encode)
+        if self.file_name != "":
+            if self.mode.get()=="EN":
+                t = threading.Thread(target=self.encode)
+            else:
+                t = threading.Thread(target=self.decode)
+            t.start()
         else:
-            t = threading.Thread(target=self.decode)
-        t.start()
+            messagebox.showwarning("NO FILE","Select image file.")
+            
                 
 if __name__=="__main__":
     app()
