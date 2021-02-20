@@ -5,6 +5,7 @@ import tkinter.scrolledtext as sct
 import threading
 import cv2
 import os
+
 import numpy as np
 
 class app():
@@ -37,7 +38,7 @@ class app():
         self.btnSearch.place(x=5,y=315)
         self.entImage = Entry(self.window,width=37,font=('arial',14),textvariable=self.imaname)
         self.entImage.place(x=167,y=315)
-        self.btnStart = Button(self.window,text="START ENCODING",width=81,bg=self.backgr)
+        self.btnStart = Button(self.window,text="START ENCODING",width=81,bg=self.backgr,command=self.init_task)
         self.btnStart.place(x=5,y=358)
         self.bylab = Label(self.window,text="BYTES AVAILABLE:")
         self.bylab.place(x=167,y=280)
@@ -71,6 +72,40 @@ class app():
 
     def clear(self):
         self.textEntry.delete('1.0',END)
+
+    def to_bin(self,data):
+        if isinstance(data, str):
+            return ''.join([ format(ord(i), "08b") for i in data ])
+        elif isinstance(data, bytes) or isinstance(data, np.ndarray):
+            return [ format(i, "08b") for i in data ]
+        elif isinstance(data, int) or isinstance(data, np.uint8):
+            return format(data, "08b")
+        else:
+            raise TypeError("Type not supported.")        
+
+    def decode(self):
+        binary_data = ""
+        for row in self.image:
+            for pixel in row:
+                r, g, b = self.to_bin(pixel)
+                binary_data += r[-1]
+                binary_data += g[-1]
+                binary_data += b[-1]
+        all_bytes = [ binary_data[i: i+8] for i in range(0, len(binary_data), 8) ]
+        decoded_data = ""
+        for byte in all_bytes:
+            decoded_data += chr(int(byte, 2))
+            if decoded_data[-5:] == "=====":
+                break
+        self.textEntry.insert(END,decoded_data)
+
+    def init_task(self):
+        if self.mode.get()=="DE":
+            t = threading.Thread(target=self.decode)
+        else:
+            t = threading.Thread(target=self.encode)
+        t.start()
+                
 
                                     
 if __name__=="__main__":
