@@ -81,7 +81,10 @@ class app():
         elif isinstance(data, int) or isinstance(data, np.uint8):
             return format(data, "08b")
         else:
-            raise TypeError("Type not supported.")        
+            raise TypeError("Type not supported.")
+
+    def encode(self):
+        print("Nothing yet :P")
 
     def decode(self):
         binary_data = ""
@@ -97,16 +100,15 @@ class app():
             decoded_data += chr(int(byte, 2))
             if decoded_data[-5:] == "=====":
                 break
-        self.textEntry.insert(END,decoded_data)
+        self.clear()
+        self.textEntry.insert(END,decoded_data[:-5])
 
     def init_task(self):
-        if self.mode.get()=="DE":
-            t = threading.Thread(target=self.decode)
-        else:
+        if self.mode.get()=="EN":
             t = threading.Thread(target=self.encode)
+        else:
+            t = threading.Thread(target=self.decode)
         t.start()
                 
-
-                                    
 if __name__=="__main__":
     app()
