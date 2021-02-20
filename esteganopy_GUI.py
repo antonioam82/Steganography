@@ -67,7 +67,7 @@ class app():
                 self.n_bytes = self.image.shape[0] * self.image.shape[1] * 3 // 8
                 self.nbytes.set(self.n_bytes)
             except:
-                messagebox.showwarning("ERROR","Bad file format.")
+                messagebox.showwarning("ERROR","Can't open the file.")
 
     def clear(self):
         self.textEntry.delete('1.0',END)
