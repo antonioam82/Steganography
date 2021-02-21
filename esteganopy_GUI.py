@@ -1,4 +1,4 @@
-om tkinter import *
+from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox, filedialog
 import tkinter.scrolledtext as sct
@@ -104,8 +104,11 @@ class app():
                         data_index += 1
                     if data_index >= data_len:
                         break
-            cv2.imwrite("encoded_"+self.file_name,self.image)
-            print("OK")
+            ima_name = "encoded_"+self.file_name
+            cv2.imwrite(ima_name,self.image)
+            messagebox.showinfo("TASK COMPLETED","Created image: {}".format(ima_name))
+        else:
+            messagebox.showwarning("ERROR","Insufficient bytes, need bigger image or less data.")
                     
 
     def decode(self):
@@ -142,3 +145,4 @@ class app():
                 
 if __name__=="__main__":
     app()
+
