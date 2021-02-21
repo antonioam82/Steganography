@@ -3,6 +3,8 @@ from tkinter import ttk
 from tkinter import messagebox, filedialog
 import tkinter.scrolledtext as sct
 import threading
+import pyperclip
+import time
 import cv2
 import os
 import numpy as np
@@ -26,7 +28,7 @@ class app():
         self.entryDir.place(x=0,y=0)
         self.textEntry = sct.ScrolledText(self.window,width=70,height=15)
         self.textEntry.place(x=5,y=28)
-        self.btnCopy = Button(self.window,text="COPY TEXT",bg=self.backgr)
+        self.btnCopy = Button(self.window,text="COPY TEXT",bg=self.backgr,command=self.init_copy)
         self.btnCopy.place(x=5,y=277)
         self.btnClear = Button(self.window,text="CLEAR TEXT",bg=self.backgr,command=self.clear)
         self.btnClear.place(x=80,y=277)
@@ -82,6 +84,21 @@ class app():
             return format(data, "08b")
         else:
             raise TypeError("Type not supported.")
+
+    def copy_text(self):
+        self.textEntry.delete('1.0',END)
+        self.ultima_copia = pyperclip.paste().strip()
+        while True:
+            time.sleep(0.1)
+            self.copia = pyperclip.paste().strip()
+            if self.copia != self.ultima_copia:
+                self.textEntry.insert(END,self.copia)
+                self.ultima_copia = self.copia 
+                break
+
+    def init_copy(self):
+        t1 = threading.Thread(target=self.copy_text)
+        t1.start()
 
     def encode(self):
         secret_data = self.textEntry.get('1.0',END)
@@ -142,7 +159,6 @@ class app():
         else:
             messagebox.showwarning("NO FILE","Select image file.")
             
-                
 if __name__=="__main__":
     app()
 
