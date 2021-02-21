@@ -64,6 +64,8 @@ class app():
                filetypes =(("PNG files","*.PNG") ,("TIFF files","*.TIFF")))
         if file != "":
             self.file_name = file.split("/")[-1]
+            os.chdir(("/").join(file.split("/")[:-1]))
+            self.show_dir()
             self.imaname.set(self.file_name)
             try:
                 self.image = cv2.imread(file)
