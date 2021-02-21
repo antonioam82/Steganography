@@ -1,4 +1,4 @@
-from tkinter import *
+om tkinter import *
 from tkinter import ttk
 from tkinter import messagebox, filedialog
 import tkinter.scrolledtext as sct
@@ -84,7 +84,29 @@ class app():
             raise TypeError("Type not supported.")
 
     def encode(self):
-        print("Nothing yet :P")
+        secret_data = self.textEntry.get('1.0',END)
+        if len(secret_data) <= self.n_bytes:##############################
+            secret_data += "====="
+            data_index = 0
+            binary_secret_data = self.to_bin(secret_data)
+            data_len = len(binary_secret_data)
+            for row in self.image:
+                for pixel in row:
+                    r, g, b = self.to_bin(pixel)
+                    if data_index < data_len:
+                        pixel[0] = int(r[:-1] + binary_secret_data[data_index], 2)
+                        data_index += 1
+                    if data_index < data_len:
+                        pixel[1] = int(g[:-1] + binary_secret_data[data_index], 2)
+                        data_index += 1
+                    if data_index < data_len:
+                        pixel[2] = int(b[:-1] + binary_secret_data[data_index], 2)
+                        data_index += 1
+                    if data_index >= data_len:
+                        break
+            cv2.imwrite("encoded_"+self.file_name,self.image)
+            print("OK")
+                    
 
     def decode(self):
         binary_data = ""
