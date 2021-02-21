@@ -151,14 +151,16 @@ class app():
 
     def init_task(self):
         if self.file_name != "":
-            if self.mode.get()=="EN":
+            if self.mode.get()=="EN" and len(self.textEntry.get('1.0',END))>1:
                 t = threading.Thread(target=self.encode)
-            else:
+                t.start()
+            elif self.mode.get()=="DE":
                 t = threading.Thread(target=self.decode)
-            t.start()
+                t.start()
         else:
             messagebox.showwarning("NO FILE","Select image file.")
             
+                
 if __name__=="__main__":
     app()
 
