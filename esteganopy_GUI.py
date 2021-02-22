@@ -61,7 +61,7 @@ class app():
         self.btnStart.configure(text="START {}CODING".format(self.mode.get()))
 
     def open_file(self):
-        file = filedialog.askopenfilename(initialdir="/",title="SELECCIONAR ARCHIVO",
+        file = filedialog.askopenfilename(initialdir="/",title="SELECT FILE",
                filetypes =(("PNG files","*.PNG") ,("TIFF files","*.TIFF")))
         if file != "":
             self.file_name = file.split("/")[-1]
