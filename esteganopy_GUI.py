@@ -13,7 +13,7 @@ class app():
     def __init__(self):
         self.window = Tk()
         self.window.title("Image Steganography")
-        self.window.geometry("593x405")
+        self.window.geometry("593x402")
         self.backgr = "gray90"
         #self.window.configure(bg=self.backgr)
 
@@ -41,11 +41,13 @@ class app():
         self.entImage = Entry(self.window,width=37,font=('arial',14),textvariable=self.imaname)
         self.entImage.place(x=167,y=315)
         self.btnStart = Button(self.window,text="START ENCODING",width=81,bg=self.backgr,command=self.init_task)
-        self.btnStart.place(x=5,y=358)
+        self.btnStart.place(x=5,y=353)
         self.bylab = Label(self.window,text="BYTES AVAILABLE:")
         self.bylab.place(x=167,y=280)
         self.byEnt = Entry(self.window,textvariable=self.nbytes,width=17)
         self.byEnt.place(x=275,y=281)
+        self.invLabel = Label(self.window,text="",fg="blue",width=83)
+        self.invLabel.place(x=3,y=380)
         
 
         self.show_dir()
@@ -128,6 +130,7 @@ class app():
             messagebox.showinfo("TASK COMPLETED","Created image: {}".format(ima_name))
         else:
             messagebox.showwarning("ERROR","Insufficient bytes, need bigger image or less data.")
+        self.invLabel.configure(text="")
                     
 
     def decode(self):
@@ -150,13 +153,16 @@ class app():
             self.textEntry.insert(END,decoded_data[:-5])
         else:
             messagebox.showwarning("NO DATA","No data encoded.")
+        self.invLabel.configure(text="")
 
     def init_task(self):
         if self.file_name != "":
             if self.mode.get()=="EN" and len(self.textEntry.get('1.0',END))>1:
+                self.invLabel.configure(text="ENCODING...")
                 t = threading.Thread(target=self.encode)
                 t.start()
             elif self.mode.get()=="DE":
+                self.invLabel.configure(text="DECODING...")
                 t = threading.Thread(target=self.decode)
                 t.start()
         else:
