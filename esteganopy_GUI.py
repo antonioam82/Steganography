@@ -15,7 +15,6 @@ class app():
         self.window.title("Image Steganography")
         self.window.geometry("593x402")
         self.backgr = "gray90"
-        #self.window.configure(bg=self.backgr)
 
         self.imaname = StringVar()
         self.current_dir = StringVar()
@@ -132,7 +131,6 @@ class app():
             messagebox.showwarning("ERROR","Insufficient bytes, need bigger image or less data.")
         self.invLabel.configure(text="")
                     
-
     def decode(self):
         binary_data = ""
         for row in self.image:
@@ -171,4 +169,5 @@ class app():
                 
 if __name__=="__main__":
     app()
+
 
