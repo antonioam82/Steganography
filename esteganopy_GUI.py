@@ -55,8 +55,7 @@ class app():
         self.window.mainloop()
 
     def show_dir(self):
-        dirr = os.getcwd()
-        self.current_dir.set(dirr)
+        self.current_dir.set(os.getcwd())
 
     def set_mode(self):
         self.btnStart.configure(text="START {}CODING".format(self.mode.get()))
