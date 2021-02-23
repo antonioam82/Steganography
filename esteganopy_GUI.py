@@ -22,6 +22,7 @@ class app():
         self.mode.set("EN")
         self.nbytes = IntVar()
         self.file_name = ""
+        self.running = False
 
         self.entryDir = Entry(self.window,width=98,textvariable=self.current_dir)
         self.entryDir.place(x=0,y=0)
@@ -130,6 +131,7 @@ class app():
         else:
             messagebox.showwarning("ERROR","Insufficient bytes, need bigger image or less data.")
         self.invLabel.configure(text="")
+        self.running = False
                     
     def decode(self):
         binary_data = ""
@@ -152,14 +154,17 @@ class app():
         else:
             messagebox.showwarning("NO DATA","No data encoded.")
         self.invLabel.configure(text="")
+        self.running = False
 
     def init_task(self):
         if self.file_name != "":
-            if self.mode.get()=="EN" and len(self.textEntry.get('1.0',END))>1:
+            if self.mode.get()=="EN" and len(self.textEntry.get('1.0',END))>1 and self.running==False:
+                self.running = True
                 self.invLabel.configure(text="ENCODING...")
                 t = threading.Thread(target=self.encode)
                 t.start()
-            elif self.mode.get()=="DE":
+            elif self.mode.get()=="DE" and self.running==False:
+                self.running = True
                 self.invLabel.configure(text="DECODING...")
                 t = threading.Thread(target=self.decode)
                 t.start()
