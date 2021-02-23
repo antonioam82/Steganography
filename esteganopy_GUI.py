@@ -100,6 +100,8 @@ class app():
                 break
 
     def init_copy(self):
+        messagebox.showinfo("IMPORT TEXT","""Select the text, right-click and
+select 'copy' to import it.""")
         t1 = threading.Thread(target=self.copy_text)
         t1.start()
 
@@ -133,6 +135,7 @@ class app():
         self.running = False
                     
     def decode(self):
+        #self.invLabel.configure(text="STATE: Reading the image.")
         binary_data = ""
         for row in self.image:
             for pixel in row:
@@ -140,6 +143,7 @@ class app():
                 binary_data += r[-1]
                 binary_data += g[-1]
                 binary_data += b[-1]
+        #self.invLabel.configure(text="STATE: Converting from bits to characers.")
         all_bytes = [ binary_data[i: i+8] for i in range(0, len(binary_data), 8) ]
         decoded_data = ""
         for byte in all_bytes:
