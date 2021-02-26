@@ -1,3 +1,4 @@
+
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox, filedialog
@@ -48,7 +49,7 @@ class app():
         self.byEnt.place(x=275,y=281)
         self.invLabel = Label(self.window,text="",fg="blue",width=83)
         self.invLabel.place(x=3,y=380)
-        self.btnSave = Button(self.window,text="SAVE DECODED DATA",width=20,bg=self.backgr)
+        self.btnSave = Button(self.window,text="SAVE DATA",width=20,bg=self.backgr,command=self.save_data)
         self.btnSave.place(x=5,y=353)
         
 
@@ -58,6 +59,21 @@ class app():
 
     def show_dir(self):
         self.current_dir.set(os.getcwd())
+
+    def save_data(self):
+        if len(self.textEntry.get('1.0',END)) > 1:
+            document = filedialog.asksaveasfilename(initialdir="/",
+                       title="Save",defaultextension='.txt')
+            if document != "":
+                file = open(document,"w",encoding="utf-8")
+                line = ""
+                content = self.textEntry.get('1.0',END)
+                for l in content:
+                    line = line+l
+                file.write(line)
+                file.close()
+                messagebox.showinfo("SAVED","Saved document: {}".format(document))
+            
 
     def set_mode(self):
         self.btnStart.configure(text="START {}CODING".format(self.mode.get()))
@@ -109,7 +125,7 @@ select 'copy' to import it.""")
 
     def encode(self):
         secret_data = self.textEntry.get('1.0',END)
-        if len(secret_data) <= self.n_bytes:##############################
+        if len(secret_data) <= self.n_bytes:
             secret_data += "====="
             data_index = 0
             binary_secret_data = self.to_bin(secret_data)
@@ -137,7 +153,6 @@ select 'copy' to import it.""")
         self.running = False
                     
     def decode(self):
-        #self.invLabel.configure(text="STATE: Reading the image.")
         binary_data = ""
         for row in self.image:
             for pixel in row:
@@ -145,7 +160,6 @@ select 'copy' to import it.""")
                 binary_data += r[-1]
                 binary_data += g[-1]
                 binary_data += b[-1]
-        #self.invLabel.configure(text="STATE: Converting from bits to characers.")
         all_bytes = [ binary_data[i: i+8] for i in range(0, len(binary_data), 8) ]
         decoded_data = ""
         for byte in all_bytes:
