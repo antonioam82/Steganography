@@ -125,8 +125,8 @@ select 'copy' to import it.""")
     def encode(self):
         secret_data = self.textEntry.get('1.0',END)
         if len(secret_data) <= self.n_bytes:
-            new_file = filedialog.asksaveasfilename(initialdir="/",
-                       title="Save",defaultextension='.png')
+            new_file = filedialog.asksaveasfilename(initialdir="/",filetypes=[('png files','*.PNG'),
+                                     ('tiff files','*.TIFF')],title="Save",defaultextension='.png')
             ima_name = (new_file).split("/")[-1]
             #print(ima_name)
             if new_file != "":
@@ -152,7 +152,7 @@ select 'copy' to import it.""")
                 cv2.imwrite(new_file,self.image)
                 messagebox.showinfo("TASK COMPLETED","Created image: {}".format(ima_name))
         else:
-            messagebox.showwarning("ERROR","Insufficient bytes, need bigger image or less data.")
+            messagebox.showwarning("NO ESPACE","Insufficient bytes, need bigger image or less data.")
         self.invLabel.configure(text="")
         self.running = False
                     
