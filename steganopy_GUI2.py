@@ -1,4 +1,3 @@
-
 from tkinter import *
 from tkinter import ttk
 from tkinter import messagebox, filedialog
@@ -126,27 +125,32 @@ select 'copy' to import it.""")
     def encode(self):
         secret_data = self.textEntry.get('1.0',END)
         if len(secret_data) <= self.n_bytes:
-            secret_data += "====="
-            data_index = 0
-            binary_secret_data = self.to_bin(secret_data)
-            data_len = len(binary_secret_data)
-            for row in self.image:
-                for pixel in row:
-                    r, g, b = self.to_bin(pixel)
-                    if data_index < data_len:
-                        pixel[0] = int(r[:-1] + binary_secret_data[data_index], 2)
-                        data_index += 1
-                    if data_index < data_len:
-                        pixel[1] = int(g[:-1] + binary_secret_data[data_index], 2)
-                        data_index += 1
-                    if data_index < data_len:
-                        pixel[2] = int(b[:-1] + binary_secret_data[data_index], 2)
-                        data_index += 1
-                    if data_index >= data_len:
-                        break
-            ima_name = "encoded_"+self.file_name
-            cv2.imwrite(ima_name,self.image)
-            messagebox.showinfo("TASK COMPLETED","Created image: {}".format(ima_name))
+            new_file = filedialog.asksaveasfilename(initialdir="/",
+                       title="Save",defaultextension='.png')
+            ima_name = (new_file).split("/")[-1]
+            #print(ima_name)
+            if new_file != "":
+                secret_data += "====="
+                data_index = 0
+                binary_secret_data = self.to_bin(secret_data)
+                data_len = len(binary_secret_data)
+                for row in self.image:
+                    for pixel in row:
+                        r, g, b = self.to_bin(pixel)
+                        if data_index < data_len:
+                            pixel[0] = int(r[:-1] + binary_secret_data[data_index], 2)
+                            data_index += 1
+                        if data_index < data_len:
+                            pixel[1] = int(g[:-1] + binary_secret_data[data_index], 2)
+                            data_index += 1
+                        if data_index < data_len:
+                            pixel[2] = int(b[:-1] + binary_secret_data[data_index], 2)
+                            data_index += 1
+                        if data_index >= data_len:
+                            break
+            
+                cv2.imwrite(new_file,self.image)
+                messagebox.showinfo("TASK COMPLETED","Created image: {}".format(ima_name))
         else:
             messagebox.showwarning("ERROR","Insufficient bytes, need bigger image or less data.")
         self.invLabel.configure(text="")
