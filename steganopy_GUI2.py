@@ -52,9 +52,8 @@ class app():
         self.btnSave = Button(self.window,text="SAVE DATA",width=20,bg=self.backgr,command=self.save_data)
         self.btnSave.place(x=5,y=353)
         
-
         self.show_dir()
-
+        
         self.window.mainloop()
 
     def show_dir(self):
