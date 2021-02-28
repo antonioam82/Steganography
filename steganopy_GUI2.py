@@ -194,6 +194,5 @@ select 'copy' to import it.""")
         else:
             messagebox.showwarning("NO FILE","Select image file.")
             
-                
 if __name__=="__main__":
     app()
