@@ -3,7 +3,6 @@ from tkinter import ttk
 from tkinter import messagebox, filedialog
 import tkinter.scrolledtext as sct
 import threading
-import time
 import re
 import cv2
 import os
