@@ -124,13 +124,11 @@ select 'copy' to import it.""")
         t1.start()
 
     def encode(self):
-        #secret_data = re.sub(r"[^a-zA-Z0-9-\s-.-(-)]","",self.textEntry.get('1.0',END))#self.textEntry.get('1.0',END)
-        secret_data = self.textEntry.get('1.0',END)
+        secret_data = re.sub("\[\d+\]","",self.textEntry.get('1.0',END))
         if len(secret_data) <= self.n_bytes:
             new_file = filedialog.asksaveasfilename(initialdir="/",filetypes=[('png files','*.PNG'),
                                      ('tiff files','*.TIFF')],title="Save",defaultextension='.png')
             ima_name = (new_file).split("/")[-1]
-            #print(ima_name)
             if new_file != "":
                 secret_data += "====="
                 data_index = 0
