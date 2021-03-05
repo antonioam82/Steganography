@@ -4,6 +4,7 @@ from tkinter import messagebox, filedialog
 import tkinter.scrolledtext as sct
 import threading
 import pyperclip
+import re
 import time
 import cv2
 import os
@@ -106,8 +107,9 @@ select 'copy' to import it.""")
         t1.start()
 
     def encode(self):
-        secret_data = self.textEntry.get('1.0',END)
-        if len(secret_data) <= self.n_bytes:##############################
+        #secret_data = self.textEntry.get('1.0',END)
+        secret_data = re.sub("\[\d+\]","",self.textEntry.get('1.0',END))
+        if len(secret_data) <= self.n_bytes:
             secret_data += "====="
             data_index = 0
             binary_secret_data = self.to_bin(secret_data)
