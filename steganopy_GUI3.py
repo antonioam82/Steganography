@@ -91,6 +91,7 @@ class app():
 
     def set_marker(self):
         self.current_marker.set(self.markEntry.get())
+        messagebox.showinfo("TASK COMPLETED","New Marker: {}".format(self.current_marker.get()))
         
     def set_mode(self):
         self.btnStart.configure(text="START {}CODING".format(self.mode.get()))
