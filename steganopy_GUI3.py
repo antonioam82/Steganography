@@ -56,6 +56,7 @@ class app():
         self.btnMark = Button(self.window,text="MARKER",bg=self.backgr,width=9,command=self.marker_window)
         self.btnMark.place(x=5,y=353)
         
+
         self.show_dir()
 
         self.window.mainloop()
@@ -146,7 +147,7 @@ select 'copy' to import it.""")
                                      ('tiff files','*.TIFF')],title="Save",defaultextension='.png')
             ima_name = (new_file).split("/")[-1]
             if new_file != "":
-                secret_data += str(self.current_marker) #"====="
+                secret_data += self.current_marker.get() #"====="
                 data_index = 0
                 binary_secret_data = self.to_bin(secret_data)
                 data_len = len(binary_secret_data)
@@ -185,10 +186,10 @@ select 'copy' to import it.""")
         decoded_data = ""
         for byte in all_bytes:
             decoded_data += chr(int(byte, 2))
-            if decoded_data[-5:] == str(self.current_marker.get()):#"====="
+            if decoded_data[-5:] == self.current_marker.get():#"====="
                 break
         self.clear()
-        if str(self.current_marker.get()) in decoded_data:
+        if self.current_marker.get() in decoded_data:
             self.clear()
             self.textEntry.insert(END,decoded_data[:-5])
         else:
@@ -211,5 +212,7 @@ select 'copy' to import it.""")
         else:
             messagebox.showwarning("NO FILE","Select image file.")
             
+                
 if __name__=="__main__":
     app()
+
