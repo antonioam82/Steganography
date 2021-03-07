@@ -23,6 +23,7 @@ class app():
         self.mode.set("EN")
         self.current_marker = StringVar()
         self.current_marker.set("=====")
+        self.spaces = 5
         self.nbytes = IntVar()
         self.file_name = ""
         self.running = False
@@ -94,6 +95,7 @@ class app():
     def set_marker(self):
         if self.running == False:
             self.current_marker.set(self.markEntry.get())
+            self.spaces = len(self.markEntry.get())
             self.newLabel.configure(text="\nNew Marker: {}".format(self.current_marker.get()))
         
     def set_mode(self):
@@ -190,12 +192,12 @@ select 'copy' to import it.""")
         decoded_data = ""
         for byte in all_bytes:
             decoded_data += chr(int(byte, 2))
-            if decoded_data[-5:] == self.current_marker.get():#"====="
+            if decoded_data[-(self.spaces):] == self.current_marker.get():#"====="
                 break
         self.clear()
         if self.current_marker.get() in decoded_data:
             self.clear()
-            self.textEntry.insert(END,decoded_data[:-5])
+            self.textEntry.insert(END,decoded_data[:-(self.spaces)])
         else:
             messagebox.showwarning("NO DATA","No data encoded.")
         self.invLabel.configure(text="")
