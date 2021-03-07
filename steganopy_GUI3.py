@@ -92,8 +92,9 @@ class app():
         self.newLabel.pack()
 
     def set_marker(self):
-        self.current_marker.set(self.markEntry.get())
-        self.newLabel.configure(text="\nNew Marker: {}".format(self.current_marker.get()))
+        if self.running == False:
+            self.current_marker.set(self.markEntry.get())
+            self.newLabel.configure(text="\nNew Marker: {}".format(self.current_marker.get()))
         
     def set_mode(self):
         self.btnStart.configure(text="START {}CODING".format(self.mode.get()))
@@ -215,6 +216,7 @@ select 'copy' to import it.""")
         else:
             messagebox.showwarning("NO FILE","Select image file.")
             
+                
 if __name__=="__main__":
     app()
 
