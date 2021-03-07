@@ -81,17 +81,19 @@ class app():
     def marker_window(self):
         top = Toplevel()
         top.title("Change Marker")
-        top.geometry("340x83")
+        top.geometry("340x120")
         currentmark = Label(top,text="CURRENT MARKER")
         currentmark.pack()
         self.markEntry = Entry(top,width=25,font=('arial',16),textvariable=self.current_marker)
         self.markEntry.pack()
         btnset = Button(top,text="SET NEW MARKER",bg=self.backgr,command=self.set_marker)
         btnset.pack()
+        self.newLabel = Label(top,text="",fg="blue")
+        self.newLabel.pack()
 
     def set_marker(self):
         self.current_marker.set(self.markEntry.get())
-        messagebox.showinfo("TASK COMPLETED","New Marker: {}".format(self.current_marker.get()))
+        self.newLabel.configure(text="\nNew Marker: {}".format(self.current_marker.get()))
         
     def set_mode(self):
         self.btnStart.configure(text="START {}CODING".format(self.mode.get()))
@@ -213,7 +215,6 @@ select 'copy' to import it.""")
         else:
             messagebox.showwarning("NO FILE","Select image file.")
             
-                
 if __name__=="__main__":
     app()
 
