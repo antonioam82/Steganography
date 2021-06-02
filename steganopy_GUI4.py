@@ -35,7 +35,7 @@ class app():
         Button(self.window,text="COPY TEXT",bg=self.backgr,command=self.init_copy).place(x=5,y=311)
         Button(self.window,text="CLEAR TEXT",bg=self.backgr,command=self.clear).place(x=80,y=311)
         self.rdbEncode = Radiobutton(self.window,text="Encode",variable=self.mode,value="EN",command=self.set_mode)
-        self.rdbEncode.place(x=547,y=313)
+        self.rdbEncode.place(x=553,y=313)
         self.rdbDecode = Radiobutton(self.window,text="Decode",variable=self.mode,value="DE",command=self.set_mode)
         self.rdbDecode.place(x=629,y=313)
         Button(self.window,text="SEARCH",width=20,bg=self.backgr,command=self.open_file).place(x=5,y=345)
