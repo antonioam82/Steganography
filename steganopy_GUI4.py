@@ -80,6 +80,7 @@ class app():
     def open_file(self):
         file = filedialog.askopenfilename(initialdir="/",title="SELECT FILE",
                filetypes =(("PNG files","*.PNG") ,("TIFF files","*.TIFF")))
+        
         if file != "":
             self.file_name = file.split("/")[-1]
             os.chdir(("/").join(file.split("/")[:-1]))
@@ -157,7 +158,6 @@ select 'copy' to import it.""")
                     
     def decode(self):
         binary_data = ""
-        #print(str(self.current_marker.get()))
         for row in self.image:
             for pixel in row:
                 r, g, b = self.to_bin(pixel)
@@ -180,19 +180,22 @@ select 'copy' to import it.""")
         self.running = False
 
     def init_task(self):
-        if self.file_name != "":
-            if self.mode.get()=="EN" and len(self.textEntry.get('1.0',END))>1 and self.running==False:
-                self.running = True
-                self.invLabel.configure(text="ENCODING...")
-                t = threading.Thread(target=self.encode)
-                t.start()
-            elif self.mode.get()=="DE" and self.running==False:
-                self.running = True
-                self.invLabel.configure(text="DECODING...")
-                t = threading.Thread(target=self.decode)
-                t.start()
+        if self.current_marker.get() != "":
+            if self.file_name != "":
+                if self.mode.get()=="EN" and len(self.textEntry.get('1.0',END))>1 and self.running==False:
+                    self.running = True
+                    self.invLabel.configure(text="ENCODING...")
+                    t = threading.Thread(target=self.encode)
+                    t.start()
+                elif self.mode.get()=="DE" and self.running==False:
+                    self.running = True
+                    self.invLabel.configure(text="DECODING...")
+                    t = threading.Thread(target=self.decode)
+                    t.start()
+            else:
+                messagebox.showwarning("NO FILE","Select image file.")
         else:
-            messagebox.showwarning("NO FILE","Select image file.")
+            messagebox.showwarning("NO MARKER","A marker string is required.")
             
                 
 if __name__=="__main__":
