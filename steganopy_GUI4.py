@@ -175,7 +175,7 @@ select 'copy' to import it.""")
             self.clear()
             self.textEntry.insert(END,decoded_data[:-(self.spaces)])
         else:
-            messagebox.showwarning("NO DATA","No data encoded.")
+            messagebox.showwarning("NO DATA","Data not found.")
         self.invLabel.configure(text="")
         self.running = False
 
