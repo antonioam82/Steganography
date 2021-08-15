@@ -51,8 +51,7 @@ class app():
         self.markerEntry.place(x=410,y=315)
         self.invLabel = Label(self.window,fg="blue",width=98)
         self.invLabel.place(x=6,y=289)
-        Button(self.window,text="SAVE DATA",bg=self.backgr,width=9,command=self.save_data).place(x=5,y=379)
-        Button(self.window,text="COPY DATA",bg=self.backgr,width=9,command=self.copytext).place(x=82,y=379)
+        Button(self.window,text="COPY DATA",bg=self.backgr,width=20,command=self.copytext).place(x=5,y=379)
 
         self.show_dir()
 
@@ -65,20 +64,6 @@ class app():
 
     def show_dir(self):
         self.current_dir.set(os.getcwd())
-
-    def save_data(self):
-        if len(self.textEntry.get('1.0',END)) > 1:
-            document = filedialog.asksaveasfilename(initialdir="/",
-                       title="Save",defaultextension='.txt')
-            if document != "":
-                file = open(document,"w",encoding="utf-8")
-                line = ""
-                content = self.textEntry.get('1.0',END)
-                for l in content:
-                    line = line+l
-                file.write(line)
-                file.close()
-                messagebox.showinfo("SAVED","Saved document: {}".format(document))
         
     def set_mode(self):
         self.btnStart.configure(text="START {}CODING".format(self.mode.get()))
