@@ -58,9 +58,12 @@ class app():
         self.window.mainloop()
 
     def copytext(self):
-        if len(self.textEntry.get('1.0',END)) > 1:
-            pyperclip.copy(self.textEntry.get('1.0',END))
-            messagebox.showinfo("COPIED","Copied to clipboard.")
+        try:
+            if len(self.textEntry.get('1.0',END)) > 1:
+                pyperclip.copy(self.textEntry.get('1.0',END))
+                messagebox.showinfo("COPIED","Copied to clipboard.")
+            except Exception as e:
+                messagebox.showwarning("UNEXPECTED ERROR",str(e))
 
     def show_dir(self):
         self.current_dir.set(os.getcwd())
