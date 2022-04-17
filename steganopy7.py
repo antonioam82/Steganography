@@ -90,7 +90,7 @@ class app():
                 except:
                     messagebox.showwarning("ERROR","Can't open the file.")
         except Exception as e:
-            messagebox.showwarning("UNEXPECTED ERROR",str(e))
+            messagebox.showwarning("LOADING ERROR",str(e))
             
  
     def clear(self):
