@@ -75,20 +75,23 @@ class app():
             self.btn_copim.configure(text="IMPORT DATA",command=self.init_copy)
  
     def open_file(self):
-        file = filedialog.askopenfilename(initialdir="/",title="SELECT FILE",
-               filetypes =(("PNG files","*.PNG") ,("TIFF files","*.TIFF")))
+        try:
+            file = filedialog.askopenfilename(initialdir="/",title="SELECT FILE",
+                            filetypes =(("PNG files","*.PNG") ,("TIFF files","*.TIFF")))
  
-        if file != "":
-            self.file_name = file.split("/")[-1]
-            os.chdir(("/").join(file.split("/")[:-1]))
-            self.show_dir()
-            self.imaname.set(self.file_name)
-            try:
-                self.image = cv2.imread(file)
-                self.n_bytes = self.image.shape[0] * self.image.shape[1] * 3 // 8
-                self.nbytes.set(self.get_size_format(self.n_bytes))
-            except:
-                messagebox.showwarning("ERROR","Can't open the file.")
+            if file != "":
+                self.file_name = file.split("/")[-1]
+                os.chdir(("/").join(file.split("/")[:-1]))
+                self.show_dir()
+                self.imaname.set(self.file_name)
+                try:
+                    self.image = cv2.imread(file)
+                    self.n_bytes = self.image.shape[0] * self.image.shape[1] * 3 // 8
+                    self.nbytes.set(self.get_size_format(self.n_bytes))
+                except:
+                    messagebox.showwarning("ERROR","Can't open the file.")
+        except Exception as e:
+            messagebox.showwarning("LOADING ERROR",str(e))
  
     def clear(self):
         self.textEntry.delete('1.0',END)
