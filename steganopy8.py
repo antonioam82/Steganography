@@ -33,8 +33,7 @@ class app():
         self.entryDir.place(x=0,y=0)
         self.textEntry = sct.ScrolledText(self.window,width=85,height=16)
         self.textEntry.place(x=5,y=28)
-        Button(self.window,text="IMP TEXT",bg=self.backgr,width=9,command=self.init_copy).place(x=5,y=311)
-        Button(self.window,text="CLEAR TEXT",bg=self.backgr,command=self.clear).place(x=80,y=311)
+        Button(self.window,text="CLEAR TEXT",bg=self.backgr,width=20,command=self.clear).place(x=5,y=311)
         self.rdbEncode = Radiobutton(self.window,text="Encode",variable=self.mode,value="EN",command=self.set_mode)
         self.rdbEncode.place(x=553,y=313)
         self.rdbDecode = Radiobutton(self.window,text="Decode",variable=self.mode,value="DE",command=self.set_mode)
@@ -52,7 +51,8 @@ class app():
         self.markerEntry.place(x=410,y=315)
         self.invLabel = Label(self.window,fg="blue",width=98)
         self.invLabel.place(x=6,y=289)
-        Button(self.window,text="COPY DATA",bg=self.backgr,width=20,command=self.copytext).place(x=5,y=379)
+        self.btn_copim = Button(self.window,text="IMPORT DATA",bg=self.backgr,width=20,command=self.init_copy)
+        self.btn_copim.place(x=5,y=379)
  
         self.show_dir()
  
@@ -71,6 +71,8 @@ class app():
  
     def set_mode(self):
         self.btnStart.configure(text="START {}CODING".format(self.mode.get()))
+        if self.mode.get() == "EN":
+            self.btn_copim.configure(text="IMPORT DATA",command=self.init_copy)
  
     def open_file(self):
         file = filedialog.askopenfilename(initialdir="/",title="SELECT FILE",
@@ -173,6 +175,7 @@ select 'copy' to import it.""")
             messagebox.showwarning("NO DATA","Data not found.")
         self.invLabel.configure(text="")
         self.running = False
+        self.btn_copim.configure(text="EXPORT DATA",command=self.copytext)
 
     def get_size_format(self,b, factor=1024, suffix="B"):
         for unit in ["","K","M","G","T","P","E","Z"]:
