@@ -173,7 +173,10 @@ select 'copy' to import it.""")
         decoded_data = ""
         for byte in all_bytes:
             decoded_data += chr(int(byte, 2))
-            if decoded_data[-(self.spaces):] == self.current_marker.get() or self.interrupt == True:#"====="
+            if decoded_data[-(self.spaces):] == self.current_marker.get():#"====="
+                break
+            elif self.interrupt == True:
+                self.invLabel.configure(text="CANCELLED")
                 break
         self.clear()
         if self.current_marker.get() in decoded_data:
