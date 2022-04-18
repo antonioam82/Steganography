@@ -28,6 +28,7 @@ class app():
         self.nbytes = IntVar()
         self.file_name = ""
         self.running = False
+        self.interrupt = False
  
         self.entryDir = Entry(self.window,width=117,textvariable=self.current_dir)
         self.entryDir.place(x=0,y=0)
@@ -155,8 +156,12 @@ select 'copy' to import it.""")
             messagebox.showwarning("NO ESPACE","Insufficient bytes, need bigger image or less data.")
         self.invLabel.configure(text="")
         self.running = False
+
+    def interrup_proc(self):
+        self.interrupt = True
  
     def decode(self):
+        self.btnStart.configure(text="CANCEL DECODING",command=self.interrup_proc)
         binary_data = ""
         for row in self.image:
             for pixel in row:
@@ -168,7 +173,7 @@ select 'copy' to import it.""")
         decoded_data = ""
         for byte in all_bytes:
             decoded_data += chr(int(byte, 2))
-            if decoded_data[-(self.spaces):] == self.current_marker.get():#"====="
+            if decoded_data[-(self.spaces):] == self.current_marker.get() or self.interrupt == True:#"====="
                 break
         self.clear()
         if self.current_marker.get() in decoded_data:
@@ -177,6 +182,8 @@ select 'copy' to import it.""")
             self.btn_copim.configure(text="EXPORT DATA",command=self.copytext)
         else:
             messagebox.showwarning("NO DATA","Data not found.")
+        self.btnStart.configure(text="START {}CODING".format(self.mode.get()),command=self.init_task)
+        self.interrupt = False
         self.invLabel.configure(text="")
         self.running = False
 
@@ -188,6 +195,7 @@ select 'copy' to import it.""")
         return f"{b:.4f}Y{suffix}"
  
     def init_task(self):
+        print("OK")
         if self.current_marker.get() != "":
             if self.file_name != "":
                 if self.mode.get()=="EN" and len(self.textEntry.get('1.0',END))>1 and self.running==False:
