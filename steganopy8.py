@@ -153,7 +153,7 @@ select 'copy' to import it.""")
                 cv2.imwrite(new_file,self.image)
                 messagebox.showinfo("TASK COMPLETED","Created image: {}".format(ima_name))
         else:
-            messagebox.showwarning("NO ESPACE","Insufficient bytes, need bigger image or less data.")
+            messagebox.showwarning("NO SPACE","Insufficient bytes, needs bigger image or less data.")
         self.invLabel.configure(text="")
         self.running = False
 
