@@ -158,6 +158,7 @@ select 'copy' to import it.""")
         self.running = False
 
     def interrup_proc(self):
+        self.invLabel.configure(text="CANCELLING...")
         self.interrupt = True
  
     def decode(self):
