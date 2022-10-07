@@ -182,7 +182,7 @@ select 'copy' to import it.""")
         self.clear()
         if self.current_marker.get() in decoded_data:
             self.clear()
-            self.textEntry.insert(END,decoded_data[:-(self.spaces)])
+            self.textEntry.insert(tk.END,decoded_data[:-(self.spaces)])
             self.btn_copim.configure(text="EXPORT DATA",command=self.copytext)
         else:
             messagebox.showwarning("NO DATA","Data not found.")
