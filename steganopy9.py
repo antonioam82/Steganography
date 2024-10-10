@@ -16,6 +16,7 @@ class app():
         self.window = tk.Tk()
         self.window.title("Image Steganography")
         self.window.geometry("708x418")
+        self.window.resizable(False, False)
         self.backgr = "gray90"
  
         self.imaname = tk.StringVar()
@@ -215,7 +216,6 @@ select 'copy' to import it.""")
                 messagebox.showwarning("NO FILE","Select image file.")
         else:
             messagebox.showwarning("NO MARKER","A marker string is required.")
- 
  
 if __name__=="__main__":
     app()
